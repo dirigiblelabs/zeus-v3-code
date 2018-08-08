@@ -1,0 +1,48 @@
+{
+    "schema": {
+        "structures": [
+            {
+                "name": "ZEUS_CODE",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "name": "CODE_ID",
+                        "type": "INTEGER",
+                        "length": 0,
+                        "nullable": true,
+                        "primaryKey": "true",
+                        "identity": "true",
+                        "unique": false,
+                        "defaultValue": null,
+                        "precision": null,
+                        "scale": null
+                    },
+                    {
+                        "name": "CODE_NAME",
+                        "type": "VARCHAR",
+                        "length": "64",
+                        "nullable": true,
+                        "primaryKey": false,
+                        "identity": false,
+                        "unique": false,
+                        "defaultValue": null,
+                        "precision": null,
+                        "scale": null
+                    },
+                    {
+                        "name": "CODE_URL",
+                        "type": "VARCHAR",
+                        "length": "256",
+                        "nullable": true,
+                        "primaryKey": false,
+                        "identity": false,
+                        "unique": false,
+                        "defaultValue": null,
+                        "precision": null,
+                        "scale": null
+                    }
+                ]
+            }
+        ]
+    }
+}

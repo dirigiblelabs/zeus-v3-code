@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="page">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link type="text/css" rel="stylesheet" href="/services/v3/core/theme/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet" href="/services/v3/web/resources/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link type="image/png" rel="shortcut icon" href="/services/v3/web/resources/images/favicon.png" />
+	<style>
+		.masonry {
+			display: flex;
+			flex-flow: row wrap;
+			margin: 2rem 0;    
+		}
+		.brick {
+			flex: 1 0 auto;
+			margin-right: 2rem; 
+			margin-bottom: 2rem;
+		}
+		.brick .btn {
+			font-size: 1.2em;
+			min-width: 0;
+			height: 100%;
+			width: 100%;
+			margin: auto 0;
+			display: flex;
+			position: relative;
+			overflow: hidden; 
+		}
+		.brick .btn:after {
+			font-family: FontAwesome;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			opacity: 0.3;
+			color: rgba(0, 0, 0, 0.3);
+			font-size: 5em;
+			line-height: 7em;
+			text-align: center;
+		}
+
+		.toolbar {
+			min-height: 200px;
+		}
+		.toolbar-item {
+			min-width: 200px;
+			max-width: 200px;
+			min-height: 200px;
+			max-height: 200px;
+		}
+		.toolbar-item .btn {
+			font-size: 1em;
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: space-between;
+		}
+		.toolbar-item .btn:after {
+			font-size: 5em;
+			line-height: 8em;
+		}
+		.toolbar-item .btn .title {
+			flex: 1 0 auto;
+			text-align: left;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			font-weight: 700;	
+			font-size: 1.3em;
+			min-width: 0;
+			opacity: 0.75;
+		}
+		.toolbar-item .btn .fa {
+			align-self: flex-end;
+			font-size: 5em;
+		}
+		.toolbar-item .btn .fa {
+			opacity: 0.5;
+		}
+		.toolbar-item.tool .btn .fa {
+			align-self: center; 
+			font-size: 12em; 
+			color: inherit;
+			opacity: 0.5;
+			line-height: 184px;
+		}
+	</style>
+</head>
+
+<body ng-controller="PageController">
+	<div class="page-header container">
+		<h1>Manage Development Environments</h1>
+	</div>
+	<div class="container">
+		<div class="masonry toolbar">
+			<div class="brick toolbar-item tool">
+				<div class="btn btn-default" ng-click="createDevelopmentEnvironment()">
+					<i class="fa fa-plus"></i>
+				</div>
+			</div>
+
+			<div class="brick toolbar-item" ng-repeat="next in developmentEnvironments">
+				<a class="btn btn-default" href="{{next.URL}}" target="_blank">
+					<span class="title" ng-bind="next.Name"></span>
+					<i class="fa fa-code"></i>
+				</a>
+			</div>
+		</div>
+		<button type="button" ng-click="openDeleteDialog()" class="btn btn-lg btn-danger btn-block" style="opacity: 0.75;">Delete</button>
+	</div>
+
+	<div class="modal fade" id="deleteDevelopmentEnvironmentModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="exampleModalLabel">Delete development environment</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form ng-hide="actionType === 'delete'">
+						<div class="form-group">
+							<label>Development Environment</label>
+							<select class="form-control" ng-options="o.Id as o.Name for o in developmentEnvironments" ng-model="developmentEnvironmentId"></select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="deleteDevelopmentEnvironment()">Delete</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="/services/v3/web/resources/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="/services/v3/web/resources/bootstrap/3.3.7/bootstrap.min.js" async></script>
+	<script type="text/javascript" src="/services/v3/web/resources/angular/1.4.7/angular.min.js"></script>
+	<script type="text/javascript" src="/services/v3/web/resources/angular/1.4.7/angular-resource.min.js"></script>
+	<script type="text/javascript" src="/services/v3/web/zeus/resources/js/message-hub.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
+	<script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+
+	<script type="text/javascript" src="controller.js"></script>
+
+</body>
+</html>
