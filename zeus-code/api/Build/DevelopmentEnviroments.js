@@ -20,8 +20,6 @@ rs.service()
 			var service = getService(name);
 			var ingress = getIngress(name);
 
-			console.error("Default Cluster: " + JSON.stringify(credentials.API));
-
 			Manager.createDeployment(credentials, deployment);
 //			Manager.createStatefulSet(credentials, statefulSet);
 			Manager.createService(credentials, service);
@@ -40,7 +38,8 @@ rs.service()
 			var entity = dao.get(id);
 			if (entity) {
 				var credentials = Credentials.getDefaultCredentials();
-				Manager.deleteStatefulSet(credentials, entity.Name);
+				Manager.deleteDeployment(credentials, entity.Name);
+//				Manager.deleteStatefulSet(credentials, entity.Name);
 				Manager.deleteService(credentials, entity.Name + '-http');
 				Manager.deleteIngress(credentials, entity.Name);
 
@@ -66,7 +65,10 @@ function getDeployment(name) {
             'name': 'dirigible',
             'image': 'dirigiblelabs/dirigible-tomcat:latest',
             'port': 8080,
-            'env': []
+            'env': [{
+            	'name': 'DIRIGIBLE_THEME_DEFAULT',
+            	'value': 'fiori'
+            }]
         }]
     };
 }
