@@ -12,14 +12,18 @@ rs.service()
 		})
 	.resource('')
 		.post(function(ctx, request, response) {
-			var credentials = Credentials.getCredentials(1001);
+			var credentials = Credentials.getDefaultCredentials();
 
 			var name = generateName();
-			var statefulSet = getStatefulSet(name);
+			var deployment = getDeployment(name);
+//			var statefulSet = getStatefulSet(name);
 			var service = getService(name);
 			var ingress = getIngress(name);
 
-			Manager.createStatefulSet(credentials, statefulSet);
+			console.error("Default Cluster: " + JSON.stringify(credentials.API));
+
+			Manager.createDeployment(credentials, deployment);
+//			Manager.createStatefulSet(credentials, statefulSet);
 			Manager.createService(credentials, service);
 			Manager.createIngress(credentials, ingress);
 
@@ -35,7 +39,7 @@ rs.service()
 			var id = ctx.pathParameters.id;
 			var entity = dao.get(id);
 			if (entity) {
-				var credentials = Credentials.getCredentials(1001);
+				var credentials = Credentials.getDefaultCredentials();
 				Manager.deleteStatefulSet(credentials, entity.Name);
 				Manager.deleteService(credentials, entity.Name + '-http');
 				Manager.deleteIngress(credentials, entity.Name);
@@ -52,23 +56,38 @@ function generateName() {
 	return 'ide-' + uuid.random().substring(0, 13);
 }
 
-function getStatefulSet(name) {
+function getDeployment(name) {
 	return {
         'name': name,
         'namespace': 'zeus',
         'application': name,
         'replicas': 1,
-        'storage': '1Gi',
-        'serviceName': name + '-http',
         'containers': [{
             'name': 'dirigible',
             'image': 'dirigiblelabs/dirigible-tomcat:latest',
             'port': 8080,
-            'mountPath': '/usr/local/tomcat/dirigible',
             'env': []
         }]
     };
 }
+
+//function getStatefulSet(name) {
+//	return {
+//        'name': name,
+//        'namespace': 'zeus',
+//        'application': name,
+//        'replicas': 1,
+//        'storage': '1Gi',
+//        'serviceName': name + '-http',
+//        'containers': [{
+//            'name': 'dirigible',
+//            'image': 'dirigiblelabs/dirigible-tomcat:latest',
+//            'port': 8080,
+//            'mountPath': '/usr/local/tomcat/dirigible',
+//            'env': []
+//        }]
+//    };
+//}
 
 function getService(name) {
 	return {
@@ -85,7 +104,7 @@ function getIngress(name) {
         'name': name,
         'namespace': 'zeus',
         'application': name,
-        'host': name + '.ingress.dev.promart.shoot.canary.k8s-hana.ondemand.com',
+        'host': name + '.ingress.pro.promart.shoot.canary.k8s-hana.ondemand.com',
         'serviceName': name + '-http',
         'servicePort': 8080
     };
