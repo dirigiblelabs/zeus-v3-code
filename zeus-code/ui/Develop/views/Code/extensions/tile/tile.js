@@ -8,13 +8,15 @@
  * SAP - initial API and implementation
  */
 
-exports.getView = function() {
+var dao = require('zeus-accounts/data/dao/Deliver/Accounts.js')
+
+exports.getTile = function() {
 	return {
-		'id': 'Code',
 		'name': 'Code',
-		'label': 'Code',
-		'factory': 'frame',
-		// 'region': 'center-bottom',
-		'link': '/services/v3/web/zeus-code/ui/Build/views/Code/index.html'
+		'group': 'Develop',
+		'icon': 'code',
+		'location': '/services/v3/web/zeus-code/ui/Develop/index.html',
+		// 'count': dao.customDataCount(),
+		'order': '100'
 	};
 };

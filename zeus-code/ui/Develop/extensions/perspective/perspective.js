@@ -8,15 +8,11 @@
  * SAP - initial API and implementation
  */
 
-var dao = require('zeus-accounts/data/dao/Deliver/Accounts.js')
-
-exports.getTile = function() {
+exports.getPerspective = function(relativePath) {
 	return {
-		'name': 'Code',
-		'group': 'Build',
-		'icon': 'code',
-		'location': '/services/v3/web/zeus-templates/ui/Build/index.html',
-		// 'count': dao.customDataCount(),
-		'order': '100'
+		'name': 'Develop',
+		'image': 'code',
+		'link': relativePath + 'services/v3/web/zeus-code/ui/Develop/index.html',
+		'order': 100,
 	};
 };
