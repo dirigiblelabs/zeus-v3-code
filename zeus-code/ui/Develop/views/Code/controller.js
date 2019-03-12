@@ -13,7 +13,7 @@ angular.module('page')
 	$scope.loadDevelopmentEnvironments();
 
 	$scope.createDevelopmentEnvironment = function() {
-		$http.post(api)
+		$http.post(api, JSON.stringify({}))
 		.success($scope.loadDevelopmentEnvironments);
 	};
 
