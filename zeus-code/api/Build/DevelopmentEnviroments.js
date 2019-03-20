@@ -14,11 +14,12 @@ rs.service()
 		.post(function(ctx, request, response) {
 			var credentials = Credentials.getDefaultCredentials();
 
+			console.error("credentials: " + JSON.stringify(credentials));
 			var name = generateName();
 			var deployment = getDeployment(name);
 //			var statefulSet = getStatefulSet(name);
 			var service = getService(name);
-			var ingress = getIngress(name);
+			var ingress = getIngress(credentials.ingress, name);
 
 			Manager.createDeployment(credentials, deployment);
 //			Manager.createStatefulSet(credentials, statefulSet);
@@ -101,12 +102,12 @@ function getService(name) {
     };
 }
 
-function getIngress(name) {
+function getIngress(ingressHost, name) {
 	return {
         'name': name,
         'namespace': 'zeus',
         'application': name,
-        'host': name + '.ingress.pro.promart.shoot.canary.k8s-hana.ondemand.com',
+        'host': name + '.' + ingressHost,
         'serviceName': name + '-http',
         'servicePort': 8080
     };
