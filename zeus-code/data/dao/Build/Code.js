@@ -1,5 +1,5 @@
-var query = require('db/v3/query');
-var daoApi = require('db/v3/dao');
+var query = require('db/v4/query');
+var daoApi = require('db/v4/dao');
 var dao = daoApi.create({
 	'table': 'ZEUS_CODE',
 	'properties': [

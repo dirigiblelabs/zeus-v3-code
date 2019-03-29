@@ -1,5 +1,5 @@
-var rs = require('http/v3/rs');
-var uuid = require('utils/v3/uuid');
+var rs = require('http/v4/rs');
+var uuid = require('utils/v4/uuid');
 var dao = require('zeus-code/data/dao/Build/Code');
 var Manager = require('zeus-deployer/utils/Manager');
 var Credentials = require('zeus-deployer/utils/Credentials');
