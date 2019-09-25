@@ -63,7 +63,7 @@ function getDeployment(name) {
         replicas: 1,
         containers: [{
             name: "dirigible",
-            image: "dirigiblelabs/dirigible-xsc:1.0",
+            image: "dirigiblelabs/dirigible-xsc:1.1",
             port: 8080,
         }],
 		env: [{
